@@ -37,6 +37,8 @@ namespace Actio.Services.Activities
 
             services.AddRabbitMq(Configuration);
 
+            services.AddScoped<IActivityService, ActivityService>();
+
             return services.BuildServiceProvider();
         }
 
