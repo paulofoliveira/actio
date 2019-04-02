@@ -1,4 +1,4 @@
-﻿namespace Actio.Common.IEvent
+﻿namespace Actio.Common.Events
 {
     public class UserAuthenticated : IEvent
     {

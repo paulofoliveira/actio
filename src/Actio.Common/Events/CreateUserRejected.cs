@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Actio.Common.IEvent
+namespace Actio.Common.Events
 {
     public class CreateUserRejected : IRejectedEvent
     {
