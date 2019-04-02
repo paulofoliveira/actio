@@ -8,12 +8,10 @@ namespace Actio.Api
         public static void Main(string[] args)
         {
             ServiceHost.Create<Startup>(args)
-              .UseRabbitMQ()
+              .UseRabbitMq()
               .SubscribeToEvent<ActivityCreated>()
               .Build()
               .Run();
         }
-
-
     }
 }

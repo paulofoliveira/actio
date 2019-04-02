@@ -4,6 +4,7 @@ namespace Actio.Common.Commands
 {
     public class CreateActivity : IAuthenticatedCommand
     {
+
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
         public string Category { get; set; }

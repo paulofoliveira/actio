@@ -8,7 +8,7 @@ namespace Actio.Services.Activities
         public static void Main(string[] args)
         {
             ServiceHost.Create<Startup>(args)
-                .UseRabbitMQ()
+                .UseRabbitMq()
                 .SubscribeToCommand<CreateActivity>()
                 .Build()
                 .Run();
