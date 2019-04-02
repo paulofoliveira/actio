@@ -17,6 +17,7 @@ namespace Actio.Common.Mongo
         public MongoInitializer(IMongoDatabase database, IDatabaseSeeder seeder, IOptions<MongoOptions> options)
         {
             _database = database;
+            _seeder = seeder;
             _seed = options.Value.Seed;
         }
 
