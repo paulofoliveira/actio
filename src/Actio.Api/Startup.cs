@@ -2,6 +2,7 @@
 using Actio.Api.Repositories;
 using Actio.Common.Auth;
 using Actio.Common.Events;
+using Actio.Common.Mongo;
 using Actio.Common.RabbitMq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,6 +25,8 @@ namespace Actio.Api
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMongoDB(Configuration);
+
             services.AddJwt(Configuration);
             services.AddRabbitMq(Configuration);
 
@@ -47,6 +50,7 @@ namespace Actio.Api
             }
 
             app.UseHttpsRedirection();
+            app.ApplicationServices.GetService<IDatabaseInitializer>().InitializeAsync();
             app.UseMvc();
         }
     }
