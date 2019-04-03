@@ -1,4 +1,5 @@
 ﻿using Actio.Api.Handlers;
+using Actio.Common.Auth;
 using Actio.Common.Events;
 using Actio.Common.RabbitMq;
 using Microsoft.AspNetCore.Builder;
@@ -21,8 +22,8 @@ namespace Actio.Api
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);          
-
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddJwt(Configuration);
             services.AddRabbitMq(Configuration);
 
             services.AddScoped<IEventHandler<ActivityCreated>, ActivityCreatedHandler>();
