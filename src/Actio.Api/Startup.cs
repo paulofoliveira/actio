@@ -1,4 +1,5 @@
 ﻿using Actio.Api.Handlers;
+using Actio.Api.Repositories;
 using Actio.Common.Auth;
 using Actio.Common.Events;
 using Actio.Common.RabbitMq;
@@ -27,6 +28,7 @@ namespace Actio.Api
             services.AddRabbitMq(Configuration);
 
             services.AddScoped<IEventHandler<ActivityCreated>, ActivityCreatedHandler>();
+            services.AddScoped<IActivityRepository, ActivityRepository>();
 
             var serviceProvider = services.BuildServiceProvider();
 
