@@ -1,4 +1,7 @@
-﻿using Actio.Services.Identity.Domain.Services;
+﻿using Actio.Common.Mongo;
+using Actio.Services.Identity.Domain.Repositories;
+using Actio.Services.Identity.Domain.Services;
+using Actio.Services.Identity.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +23,9 @@ namespace Actio.Services.Identity
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            services.AddMongoDB(Configuration);
+
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddSingleton<IEncrypter, Encrypter>();
         }
 
@@ -35,6 +41,7 @@ namespace Actio.Services.Identity
             }
 
             app.UseHttpsRedirection();
+            app.ApplicationServices.GetService<IDatabaseInitializer>().InitializeAsync();
             app.UseMvc();
         }
     }
