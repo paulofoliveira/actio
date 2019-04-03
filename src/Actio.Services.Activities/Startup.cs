@@ -25,6 +25,7 @@ namespace Actio.Services.Activities
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddLogging();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddMongoDB(Configuration);           
