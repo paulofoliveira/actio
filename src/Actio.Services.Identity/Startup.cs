@@ -53,7 +53,7 @@ namespace Actio.Services.Identity
                 app.UseHsts();
             }
 
-            /app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.ApplicationServices.GetService<IDatabaseInitializer>().InitializeAsync();
             app.UseMvc();
         }
