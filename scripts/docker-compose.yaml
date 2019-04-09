@@ -1,31 +1,42 @@
 version: "3"
 
 services:
-  start-dependencies:
-    image: dadarek/wait-for-dependencies
-    depends_on:
-      - mongo
-      - rabbitmq
-    command: rabbitmq:5672
-
   api:
     build: ../src/Actio.Api
+    restart: always
+    depends_on:
+      - mongo
+      - rabbitmq   
+      - identity-service
+      - activities-service
     links:
       - rabbitmq
       - mongo
+      - identity-service
+      - activities-service
     ports:
-      - '5049:5049'
+      - '5048:5048'
 
   activities-service:
     build: ../src/Actio.Services.Activities
+    restart: always
+    depends_on:
+      - mongo
+      - rabbitmq
+      - identity-service
     links:
       - rabbitmq
       - mongo
+      - identity-service
     ports:
       - '5051:5051'
 
   identity-service:
     build: ../src/Actio.Services.Identity
+    restart: always
+    depends_on:
+      - mongo
+      - rabbitmq
     links:
       - rabbitmq
       - mongo
@@ -42,5 +53,13 @@ services:
   rabbitmq:
     image: rabbitmq
     ports:
+      - '4369:4369'
+      - '5671:5671'
       - '5672:5672'
+      - '15671:15671'
       - '15672:15672'
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:15672"]
+        interval: 30s
+        timeout: 10s
+        retries: 5
